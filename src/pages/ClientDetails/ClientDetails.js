@@ -79,6 +79,13 @@ const ClientDetails = ({ client, onBack, onUpdateClient }) => {
         { name: 'Bank_Statement.pdf', date: 'Jan 02, 2026', type: 'PDF' }
     ];
 
+    const handleToggleStatus = () => {
+        onUpdateClient({
+            ...client,
+            status: client.status === 'Active' ? 'Inactive' : 'Active'
+        });
+    };
+
     return (
         <div className="client-details-page">
             <button
@@ -104,7 +111,22 @@ const ClientDetails = ({ client, onBack, onUpdateClient }) => {
             <div className="client-header-card">
                 <div className="client-profile-header">
                     <div className="client-info-main">
-                        <h1>{client.name}</h1>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginBottom: '12px' }}>
+                            <h1>{client.name}</h1>
+                            <div className="status-toggle-wrapper">
+                                <span className={`status-label ${client.status === 'Active' ? 'status-active' : 'status-inactive'}`}>
+                                    {client.status}
+                                </span>
+                                <label className="switch" title="Toggle Client Status">
+                                    <input
+                                        type="checkbox"
+                                        checked={client.status === 'Active'}
+                                        onChange={handleToggleStatus}
+                                    />
+                                    <span className="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
                         <div className="client-contact-grid">
                             <div className="contact-item">
                                 <span style={{ fontWeight: 600, color: 'var(--color-primary-dark)' }}>Next Reminder:</span>

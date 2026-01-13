@@ -2,7 +2,7 @@ import React from 'react';
 import { Eye, Pencil, Phone } from 'lucide-react';
 import './ClientTable.css';
 
-const ClientTable = ({ clients, onViewClient, onToggleStatus, onEditClient }) => {
+const ClientTable = ({ clients, onViewClient, onEditClient }) => {
     return (
         <div className="client-table-container">
             <h3 className="client-table__title">All Clients</h3>
@@ -13,7 +13,6 @@ const ClientTable = ({ clients, onViewClient, onToggleStatus, onEditClient }) =>
                             <th>Client Name</th>
                             <th>Mobile Number</th>
                             <th>Onboarded On</th>
-                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -21,7 +20,7 @@ const ClientTable = ({ clients, onViewClient, onToggleStatus, onEditClient }) =>
                         {clients.length === 0 ? (
                             <tr>
                                 <td colSpan="4" className="client-table__empty">
-                                    No clients found
+                                    No active clients found. Ready to onboard someone new?
                                 </td>
                             </tr>
                         ) : (
@@ -35,16 +34,6 @@ const ClientTable = ({ clients, onViewClient, onToggleStatus, onEditClient }) =>
                                         </div>
                                     </td>
                                     <td>{client.onboardedDate}</td>
-                                    <td>
-                                        <label className="switch" title="Toggle to stop service temporarily">
-                                            <input
-                                                type="checkbox"
-                                                checked={client.status === 'Active'}
-                                                onChange={() => onToggleStatus(client.id)}
-                                            />
-                                            <span className="slider round"></span>
-                                        </label>
-                                    </td>
                                     <td>
                                         <button
                                             className="action-btn"
