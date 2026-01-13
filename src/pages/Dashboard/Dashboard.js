@@ -5,7 +5,7 @@ import SearchBar from './components/SearchBar';
 import ClientTable from './components/ClientTable';
 import './Dashboard.css';
 
-const Dashboard = ({ onNavigate, clients, onToggleStatus }) => {
+const Dashboard = ({ onNavigate, clients, onToggleStatus, isTrial }) => {
     const [searchQuery, setSearchQuery] = useState('');
 
     const displayClients = clients || [];

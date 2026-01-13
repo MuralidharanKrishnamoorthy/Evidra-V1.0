@@ -7,7 +7,7 @@ const ClientTable = ({ clients, onViewClient, onEditClient }) => {
         <div className="client-table-container">
             <h3 className="client-table__title">All Clients</h3>
             <div className="client-table-wrapper">
-                <table className="client-table">
+                <table className="client-table text-data">
                     <thead>
                         <tr>
                             <th>Client Name</th>

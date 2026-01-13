@@ -4,11 +4,21 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import ClientOnboarding from './pages/ClientOnboarding/ClientOnboarding';
 import ClientDetails from './pages/ClientDetails/ClientDetails';
 import InactiveClients from './pages/InactiveClients/InactiveClients';
+import Login from './pages/Auth/Login';
+import Register from './pages/Auth/Register';
+import Subscription from './pages/Subscription/Subscription';
+import StorageSettings from './pages/Settings/StorageSettings';
 import './App.css';
 
 function App() {
     const [currentView, setCurrentView] = useState('dashboard');
     const [selectedClient, setSelectedClient] = useState(null);
+    const [isAuthenticated, setIsAuthenticated] = useState(() => {
+        return localStorage.getItem('evidra_auth') === 'true';
+    });
+    const [hasSubscription, setHasSubscription] = useState(() => {
+        return localStorage.getItem('evidra_subscription') === 'true';
+    });
 
     const [clients, setClients] = useState(() => {
         try {
@@ -27,6 +37,35 @@ function App() {
             console.error('Failed to save clients to localStorage:', error);
         }
     }, [clients]);
+
+    const handleLogin = (credentials) => {
+        console.log('Logging in:', credentials);
+        setIsAuthenticated(true);
+        localStorage.setItem('evidra_auth', 'true');
+        setCurrentView('dashboard');
+    };
+
+    const handleRegister = (data) => {
+        console.log('Registering firm:', data);
+        setIsAuthenticated(true);
+        localStorage.setItem('evidra_auth', 'true');
+        setCurrentView('dashboard');
+    };
+
+    const handleSelectPlan = (plan) => {
+        console.log('Selected plan:', plan);
+        setHasSubscription(true);
+        localStorage.setItem('evidra_subscription', 'true');
+        setCurrentView('dashboard');
+    };
+
+    const handleLogout = () => {
+        setIsAuthenticated(false);
+        setHasSubscription(false);
+        localStorage.removeItem('evidra_auth');
+        localStorage.removeItem('evidra_subscription');
+        setCurrentView('login');
+    };
 
     const navigateTo = (view, data = null) => {
         if ((view === 'client-details' || view === 'client-onboarding') && data) {
@@ -60,13 +99,24 @@ function App() {
     };
 
     const renderView = () => {
+        if (!isAuthenticated) {
+            return currentView === 'register' ? (
+                <Register onRegister={handleRegister} onNavigateToLogin={() => setCurrentView('login')} />
+            ) : (
+                <Login onLogin={handleLogin} onNavigateToRegister={() => setCurrentView('register')} />
+            );
+        }
+
         switch (currentView) {
+            case 'subscription':
+                return <Subscription onSelectPlan={handleSelectPlan} />;
             case 'dashboard':
                 return (
                     <Dashboard
                         onNavigate={navigateTo}
                         clients={clients}
                         onToggleStatus={toggleClientStatus}
+                        isTrial={!hasSubscription}
                     />
                 );
             case 'inactive-clients':
@@ -94,12 +144,15 @@ function App() {
                         onUpdateClient={updateClient}
                     />
                 );
+            case 'storage-settings':
+                return <StorageSettings />;
             default:
                 return (
                     <Dashboard
                         onNavigate={navigateTo}
                         clients={clients}
                         onToggleStatus={toggleClientStatus}
+                        isTrial={!hasSubscription}
                     />
                 );
         }
@@ -107,8 +160,14 @@ function App() {
 
     return (
         <div className="app">
-            <Sidebar currentView={currentView} onNavigate={navigateTo} />
-            <main className="app__main">
+            {isAuthenticated && (
+                <Sidebar
+                    currentView={currentView}
+                    onNavigate={navigateTo}
+                    onLogout={handleLogout}
+                />
+            )}
+            <main className={isAuthenticated ? "app__main" : "app__auth"}>
                 {renderView()}
             </main>
         </div>

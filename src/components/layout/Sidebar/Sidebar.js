@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { LayoutDashboard, UserPlus, PauseCircle } from 'lucide-react';
+import { LayoutDashboard, UserPlus, PauseCircle, CreditCard, LogOut, Cloud } from 'lucide-react';
 import './Sidebar.css';
 
-const Sidebar = ({ currentView, onNavigate }) => {
+const Sidebar = ({ currentView, onNavigate, onLogout }) => {
     const [activeItem, setActiveItem] = useState('dashboard');
 
     React.useEffect(() => {
@@ -24,13 +24,23 @@ const Sidebar = ({ currentView, onNavigate }) => {
             id: 'inactive-clients',
             label: 'Dormant',
             icon: PauseCircle
+        },
+        {
+            id: 'subscription',
+            label: 'Subscription',
+            icon: CreditCard
+        },
+        {
+            id: 'cloud-storage',
+            label: 'Cloud Storage',
+            icon: Cloud
         }
     ];
 
     return (
         <div className="sidebar">
             <div className="sidebar__header">
-                <h2 className="sidebar__title">EVIDRA</h2>
+                <h2 className="sidebar__title">EVIDRA AURA</h2>
             </div>
 
             <nav className="sidebar__nav">
@@ -50,6 +60,15 @@ const Sidebar = ({ currentView, onNavigate }) => {
                     );
                 })}
             </nav>
+
+            <div className="sidebar__footer">
+                <button className="sidebar__item sidebar__logout" onClick={onLogout}>
+                    <span className="sidebar__item-icon">
+                        <LogOut size={20} />
+                    </span>
+                    <span className="sidebar__item-label">Logout</span>
+                </button>
+            </div>
         </div>
     );
 };

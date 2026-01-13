@@ -1,8 +1,30 @@
 body {
     margin: 0;
-    font-family: var(--font-family);
+    font-family: var(--font-primary);
+    color: var(--color-text-dark);
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+input,
+select,
+textarea,
+.auth-title,
+.sidebar__title,
+.sidebar__item-label {
+    font-family: var(--font-primary);
+}
+
+.text-data {
+    font-family: var(--font-secondary);
 }
 
 code {

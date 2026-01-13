@@ -31,7 +31,6 @@ const ClientDetails = ({ client, onBack, onUpdateClient }) => {
 
     const handleDeleteDocument = (docName) => {
         if (window.confirm(`Are you sure you want to delete ${docName}?`)) {
-            console.log(`Deleting document: ${docName}`);
         }
     };
 
@@ -313,7 +312,7 @@ const ClientDetails = ({ client, onBack, onUpdateClient }) => {
                                                     <button
                                                         className="action-icon-btn"
                                                         title="Download Excel"
-                                                        onClick={() => console.log(`Downloading ${doc.name} as Excel`)}
+                                                        onClick={() => { }}
                                                     >
                                                         <img src={excelIcon} alt="Excel" width="18" height="18" />
                                                     </button>
