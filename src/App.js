@@ -144,7 +144,7 @@ function App() {
                         onUpdateClient={updateClient}
                     />
                 );
-            case 'storage-settings':
+            case 'cloud-storage':
                 return <StorageSettings />;
             default:
                 return (

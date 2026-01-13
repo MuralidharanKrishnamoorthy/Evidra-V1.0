@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Cloud, Check, RefreshCw, ExternalLink, HardDrive, Layout, ChevronRight } from 'lucide-react';
+import { Check, RefreshCw, Layout, ChevronRight } from 'lucide-react';
 import onedriveLogo from '../../assets/images/onedrive.png';
 import './StorageSettings.css';
 

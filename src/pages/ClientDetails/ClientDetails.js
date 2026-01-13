@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Phone, MapPin, MessageSquare, Briefcase, FileText, Download, Eye, FileSpreadsheet, ArrowLeft, RefreshCw, CheckCircle, X, Trash2 } from 'lucide-react';
+import { Mail, Phone, Download, Eye, ArrowLeft, RefreshCw, X, Trash2 } from 'lucide-react';
 import { SERVICES_DATA } from '../../data/servicesData';
 import { calculateNextReminder } from '../../utils/dateUtils';
 import pdfIcon from '../../assets/images/pdf.png';

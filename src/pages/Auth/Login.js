@@ -50,7 +50,7 @@ const Login = ({ onLogin, onNavigateToRegister }) => {
                         <div className="form-group">
                             <div className="label-row">
                                 <label className="form-label">Password</label>
-                                <a href="#" className="forgot-link">Forgot?</a>
+                                <button type="button" className="forgot-link">Forgot?</button>
                             </div>
                             <div className="input-wrapper">
                                 <Lock className="input-icon" size={18} />

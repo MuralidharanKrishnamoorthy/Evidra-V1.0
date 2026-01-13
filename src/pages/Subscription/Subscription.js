@@ -1,4 +1,4 @@
-import { Check, ShieldCheck, Zap, TrendingUp, Award, MessageSquare, Bell, Search, FileText, Cloud, BarChart, LifeBuoy } from 'lucide-react';
+import { ShieldCheck, Zap, TrendingUp, Award, MessageSquare, Bell, Search, FileText, Cloud, BarChart, LifeBuoy } from 'lucide-react';
 import './Subscription.css';
 
 const Subscription = ({ onSelectPlan }) => {
@@ -63,7 +63,7 @@ const Subscription = ({ onSelectPlan }) => {
                 {plans.map((plan) => (
                     <div
                         key={plan.id}
-                        className={`plan-card ${plan.highlight ? 'plan-card--highlighted' : ''}`}
+                        className={`plan - card ${plan.highlight ? 'plan-card--highlighted' : ''} `}
                     >
                         {plan.badge && <span className="plan-badge">{plan.badge}</span>}
                         <div className="plan-icon">
@@ -87,7 +87,7 @@ const Subscription = ({ onSelectPlan }) => {
                         </ul>
 
                         <button
-                            className={`plan-btn ${plan.highlight ? 'plan-btn--primary' : ''}`}
+                            className={`plan - btn ${plan.highlight ? 'plan-btn--primary' : ''} `}
                             onClick={() => onSelectPlan(plan)}
                         >
                             Select Plan

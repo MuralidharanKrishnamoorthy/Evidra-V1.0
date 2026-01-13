@@ -8,13 +8,11 @@ import './Dashboard.css';
 const Dashboard = ({ onNavigate, clients, onToggleStatus, isTrial }) => {
     const [searchQuery, setSearchQuery] = useState('');
 
-    const displayClients = clients || [];
+    const displayClients = useMemo(() => clients || [], [clients]);
 
     const totalClients = displayClients.length;
-
-    const activeServicesCount = displayClients.filter(c => c.status === 'Active').length;
-
-    const inactiveServicesCount = displayClients.filter(c => c.status === 'Inactive').length;
+    const activeServicesCount = useMemo(() => displayClients.filter(c => c.status === 'Active').length, [displayClients]);
+    const inactiveServicesCount = useMemo(() => displayClients.filter(c => c.status === 'Inactive').length, [displayClients]);
 
     const filteredClients = useMemo(() => {
         const activeClients = displayClients.filter(c => c.status === 'Active');
