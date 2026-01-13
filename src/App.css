@@ -1,0 +1,17 @@
+.app {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--color-background);
+}
+
+.app__main {
+    flex: 1;
+    margin-left: 250px;
+    background-color: var(--color-background);
+}
+
+@media (max-width: 768px) {
+    .app__main {
+        margin-left: 0;
+    }
+}

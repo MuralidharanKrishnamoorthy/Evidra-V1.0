@@ -1,0 +1,324 @@
+.client-onboarding {
+    min-height: 100vh;
+    background-color: var(--color-background);
+    display: flex;
+    flex-direction: column;
+}
+
+.onboarding-header {
+    background-color: var(--color-primary-dark);
+    padding-bottom: 1rem;
+}
+
+.onboarding-content {
+    flex: 1;
+    padding: var(--spacing-lg);
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.content-card {
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: var(--spacing-xl);
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.onboarding-step {
+    flex: 1;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.onboarding-step__title {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-dark);
+}
+
+.onboarding-step__subtitle {
+    color: var(--color-text-gray);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-label {
+    display: block;
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-text-dark);
+}
+
+.form-input--full {
+    width: 100%;
+}
+
+.form-textarea {
+    width: 100%;
+    max-width: 550px;
+    padding: var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: var(--font-size-base);
+    resize: vertical;
+}
+
+.form-textarea:focus {
+    border-color: var(--color-blue-accent);
+    outline: none;
+}
+
+/* Removed .form-select as it is replaced by custom Select component */
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+    /* Aligns input boxes when labels are 1 line */
+    margin-bottom: var(--spacing-md);
+}
+
+.form-row .form-group {
+    margin-bottom: 0;
+    /* Let row handle bottom spacing */
+    flex: 1;
+    /* Ensure all columns take equal width */
+}
+
+/* Services Grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.service-card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.service-card:hover {
+    background-color: var(--color-background);
+    border-color: var(--color-blue-light);
+}
+
+.service-card--selected {
+    background-color: rgba(52, 152, 219, 0.1);
+    border-color: var(--color-blue-accent);
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-text-gray);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-short);
+}
+
+.checkbox--checked {
+    background-color: var(--color-blue-accent);
+    border-color: var(--color-blue-accent);
+}
+
+/* Review Section */
+.review-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.review-section__title {
+    font-size: var(--font-size-lg);
+    border-bottom: 2px solid var(--color-light-gray);
+    padding-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.review-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+}
+
+.review-item label {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-gray);
+    margin-bottom: var(--spacing-xs);
+}
+
+.review-item p {
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-base);
+}
+
+.review-item--full {
+    grid-column: 1 / -1;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background-color: rgba(46, 204, 113, 0.2);
+    color: #27ae60;
+    border-radius: 12px;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+}
+
+.no-services {
+    color: var(--color-text-gray);
+    font-style: italic;
+}
+
+/* Actions Footer */
+.onboarding-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--color-border);
+}
+
+.action-btn--next {
+    min-width: 120px;
+}
+
+/* Service Tag Tooltip */
+.service-tag-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.service-tag {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: rgba(52, 152, 219, 0.1);
+    /* Light blue bg */
+    color: var(--color-blue-accent);
+    border: 1px solid var(--color-blue-accent);
+    border-radius: 20px;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    margin: 4px;
+    cursor: default;
+}
+
+.service-tag-wrapper:hover .service-tooltip {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.service-tooltip {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(10px);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-primary-dark);
+    color: var(--color-white);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    width: 250px;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+    pointer-events: none;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.service-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--color-primary-dark) transparent transparent transparent;
+}
+
+/* Modern Date Picker Styling */
+.form-input--date {
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    color: var(--color-text-dark);
+}
+
+.form-input--date::-webkit-calendar-picker-indicator {
+    background-color: transparent;
+    padding: 0;
+    color: transparent;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%233498db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.tooltip-header {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #8da2bb;
+    /* Muted blue-gray text */
+    margin-bottom: 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 4px;
+}
+
+.tooltip-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tooltip-list li {
+    font-size: 13px;
+    margin-bottom: 2px;
+    padding-left: 14px;
+    position: relative;
+}
+
+.tooltip-list li::before {
+    content: '•';
+    color: var(--color-blue-accent);
+    position: absolute;
+    left: 0;
+}
