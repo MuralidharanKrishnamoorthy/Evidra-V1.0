@@ -86,7 +86,6 @@ const Dashboard = ({ onNavigate, clients, onToggleStatus }) => {
             <ClientTable
                 clients={filteredClients}
                 onViewClient={handleViewClient}
-                onToggleStatus={onToggleStatus}
                 onEditClient={handleEditClient}
             />
         </div>
