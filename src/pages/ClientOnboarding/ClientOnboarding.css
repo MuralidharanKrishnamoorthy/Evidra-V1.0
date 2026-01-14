@@ -74,13 +74,13 @@
 
 .form-textarea {
     width: 100%;
-    max-width: 550px;
     padding: var(--spacing-md);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     font-family: inherit;
     font-size: var(--font-size-base);
     resize: vertical;
+    box-sizing: border-box;
 }
 
 .form-textarea:focus {
@@ -88,14 +88,18 @@
     outline: none;
 }
 
+.form-textarea::placeholder {
+    color: var(--color-text-light);
+    font-size: 0.85rem;
+}
+
 /* Removed .form-select as it is replaced by custom Select component */
 
 .form-row {
     display: flex;
-    gap: 20px;
+    gap: 30px;
     align-items: flex-end;
-    /* Aligns input boxes when labels are 1 line */
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
 }
 
 .form-row .form-group {
@@ -275,6 +279,12 @@
     -webkit-appearance: none;
     position: relative;
     color: var(--color-text-dark);
+    font-size: 0.85rem;
+}
+
+.form-input--date::-webkit-datetime-edit {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
 }
 
 .form-input--date::-webkit-calendar-picker-indicator {

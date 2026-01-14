@@ -32,7 +32,7 @@
 
 .select-input--placeholder {
     color: var(--color-text-light);
-    /* Matches Input placeholder color */
+    font-size: 0.85rem;
 }
 
 .select-icons {

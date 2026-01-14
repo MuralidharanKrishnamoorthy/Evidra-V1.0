@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, Settings } from 'lucide-react';
+import { Users, CircleOff } from 'lucide-react';
 import './StatCards.css';
 
 const StatCards = ({ activeServicesCount, inactiveServicesCount }) => {
@@ -17,7 +17,7 @@ const StatCards = ({ activeServicesCount, inactiveServicesCount }) => {
             title: 'On-Hold Engagements',
             value: inactiveServicesCount || 0,
             description: 'Paused Mandates',
-            icon: Settings,
+            icon: CircleOff,
             className: 'stat-card--blue'
         }
     ];

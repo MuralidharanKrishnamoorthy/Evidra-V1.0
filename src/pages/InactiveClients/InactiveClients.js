@@ -1,4 +1,4 @@
-import { ArrowLeft, PauseCircle, Eye, Phone } from 'lucide-react';
+import { PauseCircle, Eye, Phone } from 'lucide-react';
 import '../Dashboard/Dashboard.css';
 import '../Dashboard/components/ClientTable.css';
 
@@ -18,25 +18,6 @@ const InactiveClients = ({ onNavigate, clients, onToggleStatus }) => {
     return (
         <div className="dashboard">
             <div className="dashboard__header" style={{ marginBottom: '12px' }}>
-                <button
-                    className="back-btn"
-                    onClick={() => onNavigate('dashboard')}
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        marginBottom: '6px',
-                        border: 'none',
-                        background: 'none',
-                        cursor: 'pointer',
-                        color: '#1e2a3a',
-                        fontSize: '15px',
-                        fontWeight: '500'
-                    }}
-                >
-                    <ArrowLeft size={18} />
-                    Back to Dashboard
-                </button>
                 <div>
                     <h1 className="dashboard__title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <PauseCircle size={24} color="var(--color-blue-accent)" />

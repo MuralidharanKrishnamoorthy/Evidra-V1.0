@@ -26,14 +26,14 @@ const Sidebar = ({ currentView, onNavigate, onLogout }) => {
             icon: PauseCircle
         },
         {
-            id: 'subscription',
-            label: 'Subscription',
-            icon: CreditCard
-        },
-        {
             id: 'cloud-storage',
             label: 'Cloud Storage',
             icon: Cloud
+        },
+        {
+            id: 'subscription',
+            label: 'Subscription',
+            icon: CreditCard
         }
     ];
 

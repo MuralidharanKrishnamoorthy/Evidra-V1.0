@@ -63,7 +63,7 @@ const Subscription = ({ onSelectPlan }) => {
                 {plans.map((plan) => (
                     <div
                         key={plan.id}
-                        className={`plan - card ${plan.highlight ? 'plan-card--highlighted' : ''} `}
+                        className={`plan-card ${plan.highlight ? 'plan-card--highlighted' : ''}`}
                     >
                         {plan.badge && <span className="plan-badge">{plan.badge}</span>}
                         <div className="plan-icon">
@@ -87,7 +87,7 @@ const Subscription = ({ onSelectPlan }) => {
                         </ul>
 
                         <button
-                            className={`plan - btn ${plan.highlight ? 'plan-btn--primary' : ''} `}
+                            className={`plan-btn ${plan.highlight ? 'plan-btn--primary' : ''}`}
                             onClick={() => onSelectPlan(plan)}
                         >
                             Select Plan

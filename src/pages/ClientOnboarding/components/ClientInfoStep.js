@@ -7,45 +7,49 @@ const ClientInfoStep = ({ formData, onChange }) => {
         <div className="onboarding-step">
             <h2 className="onboarding-step__title">Client Details</h2>
 
-            <div className="form-group">
-                <label className="form-label">Client Name</label>
-                <Input
-                    className="form-input--full"
-                    value={formData.clientName}
-                    onChange={(e) => onChange('clientName', e.target.value)}
-                    placeholder="Enter client name"
-                />
+            <div className="form-row">
+                <div className="form-group">
+                    <label className="form-label">Client Name</label>
+                    <Input
+                        className="form-input--full"
+                        value={formData.clientName}
+                        onChange={(e) => onChange('clientName', e.target.value)}
+                        placeholder="Enter client name"
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label className="form-label">Email Address</label>
+                    <Input
+                        type="email"
+                        className="form-input--full"
+                        value={formData.email || ''}
+                        onChange={(e) => onChange('email', e.target.value)}
+                        placeholder="Enter email address"
+                    />
+                </div>
             </div>
 
-            <div className="form-group">
-                <label className="form-label">Email Address</label>
-                <Input
-                    type="email"
-                    className="form-input--full"
-                    value={formData.email || ''}
-                    onChange={(e) => onChange('email', e.target.value)}
-                    placeholder="Enter email address"
-                />
-            </div>
+            <div className="form-row">
+                <div className="form-group">
+                    <label className="form-label">Primary Contact Number</label>
+                    <Input
+                        className="form-input--full"
+                        value={formData.primaryContact}
+                        onChange={(e) => onChange('primaryContact', e.target.value)}
+                        placeholder="Enter contact number"
+                    />
+                </div>
 
-            <div className="form-group">
-                <label className="form-label">Primary Contact Number</label>
-                <Input
-                    className="form-input--full"
-                    value={formData.primaryContact}
-                    onChange={(e) => onChange('primaryContact', e.target.value)}
-                    placeholder="Enter contact number"
-                />
-            </div>
-
-            <div className="form-group">
-                <label className="form-label">WhatsApp Number</label>
-                <Input
-                    className="form-input--full"
-                    value={formData.whatsappNumber}
-                    onChange={(e) => onChange('whatsappNumber', e.target.value)}
-                    placeholder="Enter WhatsApp number"
-                />
+                <div className="form-group">
+                    <label className="form-label">WhatsApp Number</label>
+                    <Input
+                        className="form-input--full"
+                        value={formData.whatsappNumber}
+                        onChange={(e) => onChange('whatsappNumber', e.target.value)}
+                        placeholder="Enter WhatsApp number"
+                    />
+                </div>
             </div>
 
             <div className="form-row">

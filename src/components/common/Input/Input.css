@@ -30,6 +30,7 @@
 
 .input::placeholder {
     color: var(--color-text-light);
+    font-size: 0.85rem;
 }
 
 .input-icon {
