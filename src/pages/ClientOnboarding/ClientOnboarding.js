@@ -4,14 +4,16 @@ import ClientInfoStep from './components/ClientInfoStep';
 import ServicesStep from './components/ServicesStep';
 import ReviewStep from './components/ReviewStep';
 import Button from '../../components/common/Button/Button';
+import LoadingOverlay from '../../components/common/LoadingOverlay/LoadingOverlay';
 import './ClientOnboarding.css';
 
-const ClientOnboarding = ({ onNavigate, onAddClient, initialData, onUpdateClient }) => {
+const ClientOnboarding = ({ onNavigate, onAddClient, initialData, onUpdateClient, showToast }) => {
     const navigateBack = () => {
         onNavigate('dashboard');
     };
 
     const [currentStep, setCurrentStep] = useState(1);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [formData, setFormData] = useState(initialData || {
         clientName: '',
         email: '',
@@ -38,36 +40,42 @@ const ClientOnboarding = ({ onNavigate, onAddClient, initialData, onUpdateClient
         if (currentStep < 3) {
             setCurrentStep(prev => prev + 1);
         } else {
-            if (initialData && initialData.id) {
-                const updatedClient = {
-                    ...initialData,
-                    ...formData,
-                    activeServices: formData.services.map(s => s.name || s),
-                    contactNumber: formData.contactNumber || formData.whatsappNumber,
-                };
+            setIsSubmitting(true);
 
-                if (typeof onUpdateClient === 'function') {
-                    onUpdateClient(updatedClient);
+            // Simulate processing delay
+            setTimeout(() => {
+                if (initialData && initialData.id) {
+                    const updatedClient = {
+                        ...initialData,
+                        ...formData,
+                        activeServices: (formData.services || []).map(s => s.name || s),
+                        contactNumber: formData.contactNumber || formData.whatsappNumber,
+                    };
+
+                    if (typeof onUpdateClient === 'function') {
+                        onUpdateClient(updatedClient);
+                    }
+                    if (showToast) showToast('Client profile updated successfully!');
+                } else {
+                    const newClient = {
+                        id: `CLI-${Date.now()}`,
+                        clientName: formData.clientName,
+                        activeServices: (formData.services || []).map(s => s.name || s),
+                        onboardedDate: new Date().toLocaleDateString('en-GB'),
+                        contactNumber: formData.contactNumber || formData.whatsappNumber,
+                        status: 'Active',
+                        ...formData
+                    };
+
+                    if (typeof onAddClient === 'function') {
+                        onAddClient(newClient);
+                    }
+                    if (showToast) showToast('New client onboarded successfully!');
                 }
-                alert('Client updated successfully!');
-            } else {
-                const newClient = {
-                    id: `CLI-${Date.now()}`,
-                    clientName: formData.clientName,
-                    activeServices: formData.services.map(s => s.name || s),
-                    onboardedDate: new Date().toLocaleDateString('en-GB'),
-                    contactNumber: formData.contactNumber || formData.whatsappNumber,
-                    status: 'Active',
-                    ...formData
-                };
 
-                if (typeof onAddClient === 'function') {
-                    onAddClient(newClient);
-                }
-                alert('Client onboarded successfully!');
-            }
-
-            navigateBack();
+                setIsSubmitting(false);
+                navigateBack();
+            }, 1800);
         }
     };
 
@@ -120,6 +128,7 @@ const ClientOnboarding = ({ onNavigate, onAddClient, initialData, onUpdateClient
                     </div>
                 </div>
             </div>
+            {isSubmitting && <LoadingOverlay message={initialData ? "Updating Client..." : "Onboarding Client..."} />}
         </div>
     );
 };

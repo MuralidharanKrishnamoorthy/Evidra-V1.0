@@ -6,13 +6,13 @@ import './ServicesStep.css';
 const ServicesStep = ({ formData, onChange }) => {
     const [activeServiceId, setActiveServiceId] = useState(null);
 
-    const isDocumentSelected = (serviceId, docName) => {
-        const serviceDocs = formData.selectedDocuments?.[serviceId] || [];
+    const isDocumentSelected = (serviceTitle, docName) => {
+        const serviceDocs = formData.selectedDocuments?.[serviceTitle] || [];
         return serviceDocs.includes(docName);
     };
 
-    const toggleDocument = (serviceId, docName) => {
-        const currentServiceDocs = formData.selectedDocuments?.[serviceId] || [];
+    const toggleDocument = (serviceTitle, docName) => {
+        const currentServiceDocs = formData.selectedDocuments?.[serviceTitle] || [];
         let newServiceDocs;
 
         if (currentServiceDocs.includes(docName)) {
@@ -23,24 +23,21 @@ const ServicesStep = ({ formData, onChange }) => {
 
         const newSelectedDocuments = {
             ...formData.selectedDocuments,
-            [serviceId]: newServiceDocs
+            [serviceTitle]: newServiceDocs
         };
 
         onChange('selectedDocuments', newSelectedDocuments);
 
-        const serviceTitle = SERVICES_DATA.find(s => s.id === serviceId)?.title;
-        if (serviceTitle) {
-            const currentServices = formData.services || [];
-            const hasAnyDoc = newServiceDocs.length > 0;
-            let newServicesList = [...currentServices];
+        const currentServices = formData.services || [];
+        const hasAnyDoc = newServiceDocs.length > 0;
+        let newServicesList = [...currentServices];
 
-            if (hasAnyDoc && !currentServices.includes(serviceTitle)) {
-                newServicesList.push(serviceTitle);
-            } else if (!hasAnyDoc && currentServices.includes(serviceTitle)) {
-                newServicesList = newServicesList.filter(s => s !== serviceTitle);
-            }
-            onChange('services', newServicesList);
+        if (hasAnyDoc && !currentServices.includes(serviceTitle)) {
+            newServicesList.push(serviceTitle);
+        } else if (!hasAnyDoc && currentServices.includes(serviceTitle)) {
+            newServicesList = newServicesList.filter(s => s !== serviceTitle);
         }
+        onChange('services', newServicesList);
     };
 
     const activeServiceData = activeServiceId ? SERVICES_DATA.find(s => s.id === activeServiceId) : null;
@@ -59,7 +56,7 @@ const ServicesStep = ({ formData, onChange }) => {
                     <div className="services-list">
                         {SERVICES_DATA.map(service => {
                             const isActive = activeServiceId === service.id;
-                            const serviceDocs = formData.selectedDocuments?.[service.id] || [];
+                            const serviceDocs = formData.selectedDocuments?.[service.title] || [];
                             const hasSelection = serviceDocs.length > 0;
 
                             return (
@@ -89,12 +86,12 @@ const ServicesStep = ({ formData, onChange }) => {
 
                             <div className="documents-list">
                                 {activeServiceData.documents.map((doc, index) => {
-                                    const isSelected = isDocumentSelected(activeServiceId, doc);
+                                    const isSelected = isDocumentSelected(activeServiceData.title, doc);
                                     return (
                                         <div
                                             key={index}
                                             className={`document-item ${isSelected ? 'document-item--selected' : ''}`}
-                                            onClick={() => toggleDocument(activeServiceId, doc)}
+                                            onClick={() => toggleDocument(activeServiceData.title, doc)}
                                         >
                                             <div className={`checkbox ${isSelected ? 'checkbox--checked' : ''}`}>
                                                 {isSelected && <Check size={14} color="white" />}

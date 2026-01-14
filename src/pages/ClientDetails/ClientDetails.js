@@ -5,20 +5,36 @@ import { calculateNextReminder } from '../../utils/dateUtils';
 import pdfIcon from '../../assets/images/pdf.png';
 import excelIcon from '../../assets/images/excel.png';
 import whatsappIcon from '../../assets/images/whatsapp.png';
+import LoadingOverlay from '../../components/common/LoadingOverlay/LoadingOverlay';
 import './ClientDetails.css';
 
-const ClientDetails = ({ client, onBack, onUpdateClient }) => {
+const ClientDetails = ({ client, onBack, onUpdateClient, showToast }) => {
     const [activeTab, setActiveTab] = useState('services');
     const [selectedService, setSelectedService] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isProcessing, setIsProcessing] = useState(false);
 
     const openServiceDetails = (service) => {
         const serviceMeta = SERVICES_DATA.find(s => s.title === service.name);
-        const documents = serviceMeta ? serviceMeta.documents.map((doc, idx) => ({
-            id: idx,
-            name: doc,
-            status: ['Verified', 'Partial', 'Incomplete'][Math.floor(Math.random() * 3)]
-        })) : [];
+
+        // Get selected documents for this service from the client object
+        const selectedDocsForService = client.selectedDocuments?.[service.name] || [];
+
+        const documents = serviceMeta ? serviceMeta.documents
+            .filter(doc => selectedDocsForService.includes(doc)) // Only show selected docs
+            .map((doc, idx) => {
+                // More intentional status distribution
+                let status = 'Pending';
+                if (idx === 0) status = 'Verified';
+                else if (idx === 1) status = 'Partial';
+                else if (idx % 3 === 0) status = 'Incomplete';
+
+                return {
+                    id: idx,
+                    name: doc,
+                    status: status
+                };
+            }) : [];
 
         setSelectedService({ ...service, documentList: documents });
         setIsModalOpen(true);
@@ -61,13 +77,19 @@ const ClientDetails = ({ client, onBack, onUpdateClient }) => {
         const serviceMeta = SERVICES_DATA.find(s => s.title === serviceName);
         const totalDocs = serviceMeta ? serviceMeta.documents.length : 0;
 
+        // Match mock data logic or real data
+        const status = index % 2 === 0 ? 'Verified' : 'Pending';
+        const progress = index % 2 === 0 ? 100 : 40;
+        const currentDocs = index % 2 === 0 ? totalDocs : Math.floor(totalDocs / 2);
+
         return {
             id: index,
             name: serviceName,
-            status: 'Pending',
-            deadline: client.deadline || 'No Deadline',
-            progress: 0,
-            docsCount: `0/${totalDocs} documents`
+            status: status,
+            deadline: client.deadline || '20th Jan 2026',
+            progress: progress,
+            docsCount: `${currentDocs}/${totalDocs} documents`,
+            description: serviceName.includes('GST') ? 'Monthly GST return filing' : 'Monthly TDS return'
         };
     });
 
@@ -79,10 +101,14 @@ const ClientDetails = ({ client, onBack, onUpdateClient }) => {
     ];
 
     const handleToggleStatus = () => {
-        onUpdateClient({
-            ...client,
-            status: client.status === 'Active' ? 'Inactive' : 'Active'
-        });
+        setIsProcessing(true);
+        setTimeout(() => {
+            onUpdateClient({
+                ...client,
+                status: client.status === 'Active' ? 'Inactive' : 'Active'
+            });
+            setIsProcessing(false);
+        }, 1200);
     };
 
     return (
@@ -128,7 +154,7 @@ const ClientDetails = ({ client, onBack, onUpdateClient }) => {
                         </div>
                         <div className="client-contact-grid">
                             <div className="contact-item">
-                                <span style={{ fontWeight: 600, color: 'var(--color-primary-dark)' }}>Next Reminder:</span>
+                                <span style={{ fontWeight: 600, color: 'var(--color-primary-dark)' }}>Next Reminder: (Auto)</span>
                                 <span>{client.reminderDate || 'Not Set'}</span>
                                 {client.reminderDate && (
                                     <button
@@ -150,7 +176,7 @@ const ClientDetails = ({ client, onBack, onUpdateClient }) => {
                             </div>
                             <div className="contact-item">
                                 <Phone size={16} />
-                                <span>{client.contact}</span>
+                                <span>{client.primaryContact || client.contactNumber}</span>
                             </div>
                             <div className="contact-item">
                                 <img src={whatsappIcon} alt="WhatsApp" width="16" height="16" />
@@ -204,7 +230,7 @@ const ClientDetails = ({ client, onBack, onUpdateClient }) => {
                                             <div className="progress-fill" style={{ width: `${service.progress}%` }}></div>
                                         </div>
                                         <div className="service-meta">
-                                            <span>{service.status === 'Partial' ? 'Monthly GST return filing' : 'Monthly TDS return'}</span>
+                                            <span>{service.description}</span>
                                             <span>{service.docsCount}</span>
                                         </div>
                                     </div>
@@ -333,6 +359,7 @@ const ClientDetails = ({ client, onBack, onUpdateClient }) => {
                     </div>
                 </div>
             )}
+            {isProcessing && <LoadingOverlay message="Updating Status..." />}
         </div>
     );
 };

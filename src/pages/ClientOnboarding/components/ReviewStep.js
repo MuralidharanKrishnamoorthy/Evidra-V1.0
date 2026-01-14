@@ -60,9 +60,7 @@ const ReviewStep = ({ formData }) => {
                 ) : (
                     <div className="service-tags">
                         {formData.services.map((service, index) => {
-                            const serviceEntry = Object.entries(SERVICES_DATA).find(([_, s]) => s.title === service);
-                            const serviceId = serviceEntry ? SERVICES_DATA.find(s => s.title === service)?.id : null;
-                            const docs = serviceId ? (formData.selectedDocuments?.[serviceId] || []) : [];
+                            const docs = formData.selectedDocuments?.[service] || [];
 
                             return (
                                 <div key={index} className="service-tag-wrapper">

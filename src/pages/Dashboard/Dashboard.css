@@ -48,6 +48,40 @@
     color: var(--color-text-gray);
 }
 
+.dashboard__insight {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: calc(var(--spacing-md) * -1);
+    margin-bottom: var(--spacing-sm);
+    padding-left: 4px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.insight-dot {
+    color: var(--color-blue-accent, #3498db);
+    font-size: 18px;
+    line-height: 1;
+}
+
+.insight-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-gray);
+    font-weight: 500;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 @media (max-width: 768px) {
     .dashboard {
         padding: var(--spacing-md);

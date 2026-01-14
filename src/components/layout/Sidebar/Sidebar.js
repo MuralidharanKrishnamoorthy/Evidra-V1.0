@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { LayoutDashboard, UserPlus, PauseCircle, CreditCard, LogOut, Cloud } from 'lucide-react';
 import './Sidebar.css';
 
-const Sidebar = ({ currentView, onNavigate, onLogout }) => {
+const Sidebar = ({ currentView, onNavigate }) => {
     const [activeItem, setActiveItem] = useState('dashboard');
 
     React.useEffect(() => {
@@ -61,14 +61,7 @@ const Sidebar = ({ currentView, onNavigate, onLogout }) => {
                 })}
             </nav>
 
-            <div className="sidebar__footer">
-                <button className="sidebar__item sidebar__logout" onClick={onLogout}>
-                    <span className="sidebar__item-icon">
-                        <LogOut size={20} />
-                    </span>
-                    <span className="sidebar__item-label">Logout</span>
-                </button>
-            </div>
+
         </div>
     );
 };

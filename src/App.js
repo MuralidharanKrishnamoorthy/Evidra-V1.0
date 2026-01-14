@@ -8,14 +8,19 @@ import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
 import Subscription from './pages/Subscription/Subscription';
 import StorageSettings from './pages/Settings/StorageSettings';
+import { MOCK_CLIENTS } from './data/mockClients';
+import Toast from './components/common/Toast/Toast';
 import './App.css';
 
 function App() {
     const [currentView, setCurrentView] = useState('dashboard');
     const [selectedClient, setSelectedClient] = useState(null);
-    const [isAuthenticated, setIsAuthenticated] = useState(() => {
-        return localStorage.getItem('evidra_auth') === 'true';
-    });
+    const [isAuthenticated, setIsAuthenticated] = useState(true); // Forced for Demo
+    const [toast, setToast] = useState(null);
+
+    const showToast = (message, type = 'success') => {
+        setToast({ message, type });
+    };
     const [hasSubscription, setHasSubscription] = useState(() => {
         return localStorage.getItem('evidra_subscription') === 'true';
     });
@@ -23,10 +28,25 @@ function App() {
     const [clients, setClients] = useState(() => {
         try {
             const savedClients = localStorage.getItem('evidra_clients');
-            return savedClients ? JSON.parse(savedClients) : [];
+            const localClients = savedClients ? JSON.parse(savedClients) : [];
+
+            // Map MOCK_CLIENTS to ensure consistency
+            const normalizedMocks = MOCK_CLIENTS.map(mc => ({
+                ...mc,
+                name: mc.clientName, // Ensure 'name' is available
+                services: mc.services || mc.activeServices || [],
+                onboardedDate: mc.onboardedDate || '01/01/2026',
+                primaryContact: mc.primaryContact || mc.contactNumber,
+                selectedDocuments: mc.selectedDocuments || {}
+            }));
+
+            // Filter out mocks from localClients to avoid duplicates if they were already saved
+            const nonMockLocal = localClients.filter(c => !c.id.toString().startsWith('mock-'));
+
+            return [...normalizedMocks, ...nonMockLocal];
         } catch (error) {
             console.error('Failed to parse clients from localStorage:', error);
-            return [];
+            return MOCK_CLIENTS.map(mc => ({ ...mc, name: mc.clientName }));
         }
     });
 
@@ -60,11 +80,7 @@ function App() {
     };
 
     const handleLogout = () => {
-        setIsAuthenticated(false);
-        setHasSubscription(false);
-        localStorage.removeItem('evidra_auth');
-        localStorage.removeItem('evidra_subscription');
-        setCurrentView('login');
+        // Disabled for Demo
     };
 
     const navigateTo = (view, data = null) => {
@@ -99,13 +115,7 @@ function App() {
     };
 
     const renderView = () => {
-        if (!isAuthenticated) {
-            return currentView === 'register' ? (
-                <Register onRegister={handleRegister} onNavigateToLogin={() => setCurrentView('login')} />
-            ) : (
-                <Login onLogin={handleLogin} onNavigateToRegister={() => setCurrentView('register')} />
-            );
-        }
+        // Auth screens hidden for Demo
 
         switch (currentView) {
             case 'subscription':
@@ -134,6 +144,7 @@ function App() {
                         onAddClient={addClient}
                         initialData={selectedClient}
                         onUpdateClient={updateClient}
+                        showToast={showToast}
                     />
                 );
             case 'client-details':
@@ -142,6 +153,7 @@ function App() {
                         client={selectedClient}
                         onBack={() => navigateTo('dashboard')}
                         onUpdateClient={updateClient}
+                        showToast={showToast}
                     />
                 );
             case 'cloud-storage':
@@ -164,7 +176,6 @@ function App() {
                 <Sidebar
                     currentView={currentView}
                     onNavigate={navigateTo}
-                    onLogout={handleLogout}
                 />
             )}
             <main className={isAuthenticated ? "app__main" : "app__auth"}>

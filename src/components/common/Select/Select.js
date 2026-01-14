@@ -70,7 +70,6 @@ const Select = ({
                             <X size={16} />
                         </button>
                     )}
-                    <ChevronDown size={16} />
                 </div>
             </div>
 
