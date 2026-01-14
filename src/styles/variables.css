@@ -19,7 +19,7 @@
   --spacing-xl: 2rem;
   --spacing-2xl: 3rem;
 
-  --font-primary: 'Poppins', sans-serif;
+  --font-primary: 'Inter', sans-serif;
   --font-secondary: 'Inter', sans-serif;
   --font-family: var(--font-primary);
   --font-size-xs: 0.75rem;

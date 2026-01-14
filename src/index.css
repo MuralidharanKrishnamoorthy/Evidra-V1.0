@@ -24,7 +24,7 @@ textarea,
 }
 
 .text-data {
-    font-family: var(--font-secondary);
+    font-family: var(--font-primary);
 }
 
 code {
